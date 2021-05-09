@@ -18,11 +18,35 @@ def index():
 
 @camara.route('/deputies')
 def deputies():
+    r = requests.get(f'http://{base_url}/api/deputies-home')
+    return jsonify(r.json())
+
+@camara.route('/home')
+def deputies_home():
     r = requests.get(f'http://{base_url}/api/deputies')
-  
     return jsonify(r.json())
 
 @camara.route('/resultado', methods=['POST'])
 def resultado():
     r = requests.post(f'http://{base_url}/api/resultado', json=request.get_json())
+    return jsonify(r.json())
+
+@camara.route('/profile/<id>')
+def profile(id):
+    r = requests.get(f'http://{base_url}/api/deputies/{id}')
+    return r.json()
+
+@camara.route('/parties')
+def parties():
+    r = requests.get(f'http://{base_url}/api/parties')
+    return jsonify(r.json())
+
+@camara.route('/federative_unities')
+def federative_unities():
+    r = requests.get(f'http://{base_url}/api/federative_unities')
+    return jsonify(r.json())
+
+@camara.route('/get_votes_by_deputy_id/<id>')
+def get_proposition_vote_by_deputy_id(id):
+    r = requests.get(f'http://{base_url}/api/get_votes_by_deputy_id/{id}')
     return jsonify(r.json())
